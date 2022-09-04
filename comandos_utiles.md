@@ -57,4 +57,12 @@ Detener los contenedores
 ```sh
 $ docker-compose stop
 ```
+Si se necesita forzar un rebuild desde cero
+```sh
+$ docker-compose build --no-cache
+```
+Borrar los contenedores generadores por este compose
+```sh
+$ docker-compose rm -f
+```
 

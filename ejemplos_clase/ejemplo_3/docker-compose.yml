@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-      build: ./flask_demo
-      ports:
-        # Enlazamos el puerto 5030 del host al 5030 del conteiner
-        - 5030:5030
+    build: ./flask_demo
+    ports:
+      # Enlazamos el puerto 5030 del host al 5030 del conteiner
+      - 5030:5030
