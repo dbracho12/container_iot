@@ -1,0 +1,8 @@
+version: '3'
+services:
+  monitoreo:
+    build: ./prometheus_monitoreo/prometheus_exporter
+    network_mode: "host"
+  
+  iotbridge:
+    build: ./iotbridge

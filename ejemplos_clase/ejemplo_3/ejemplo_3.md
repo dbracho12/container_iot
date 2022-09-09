@@ -21,7 +21,7 @@ Esta carpeta es como normalmente se verá un repositorio con docker, tendrá:
 ### 3 - Crear una imagen de Docker
 Dentro de la carpeta "flask_demo" hay un archivo Dockerfile vacio, el cual iremos completando.
 
-Primer comenzaremos por especificar arriba de todo desde que imagen parte esta nueva imagen custom, en este caso partiremos de la imagen de python que descargamos del docker hub. Copiar en el Dockerfile:
+Primero comenzaremos por especificar arriba de todo desde que imagen parte esta nueva imagen custom, en este caso partiremos de la imagen de python que descargamos del docker hub. Copiar en el Dockerfile:
 ```Dockerfile
 # imagen base de python
 FROM python:3.9.1

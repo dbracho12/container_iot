@@ -1,3 +1,5 @@
+import os
+import sys
 import time
 import json
 import random
@@ -11,6 +13,10 @@ import logging
 import logging.config
 
 config = dotenv_values()
+if not config:
+    # No existe el archivo .env
+    # Leer de las variables de entorno
+    config = dict(os.environ)
 
 # ----------------------
 # Aquí manipular las funciones de uso general
@@ -258,18 +264,33 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, finalizar_programa)
 
     # El programa principal solo armará e invocará threads
+    threads = []
+
     logging.info("Lanzar thread de procesamiento de MQTT local")
     thread_procesamiento_local = threading.Thread(target=procesamiento_local, args=("procesamiento_local", flags, client_local, client_remoto), daemon=True)
     thread_procesamiento_local.start()
+    threads.append(thread_procesamiento_local)
 
     logging.info("Lanzar thread de procesamiento de MQTT remoto")
     thread_procesamiento_remoto = threading.Thread(target=procesamiento_remoto, args=("procesamiento_remoto", flags, client_local, client_remoto), daemon=True)
     thread_procesamiento_remoto.start()
+    threads.append(thread_procesamiento_remoto)
 
     # ----------------------
     # El programa principal queda a la espera de que se desee
     # finalizar el programa
     while flags["thread_continue"]:
+        # Verificar si algún thread se cayó
+        if flags["thread_continue"] == True:
+            force_exit = False
+            for thread in threads:
+                if thread.is_alive() == False:
+                    logging.error(f"Thread: {thread} explotó!")
+                    force_exit = True
+
+            if force_exit == True:
+                sys.exit()
+
         # busy loop
         time.sleep(0.5)
     

@@ -5,6 +5,7 @@ services:
     ports:
       # Enlazamos el puerto 5030 del host al 5030 del conteiner
       - 5030:5030
+
   app2:
     build: ./flask_demo
     ports:
