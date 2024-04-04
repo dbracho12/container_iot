@@ -6,3 +6,11 @@ services:
   
   iotbridge:
     build: ./iotbridge
+    image: dbracho12/iotpuente:1.0.0
+    network_mode: "host"
+
+    env_file:
+     - .env
+
+    volumes:
+     - /home/logs/iotbridge:/home/logs/iotbridge
